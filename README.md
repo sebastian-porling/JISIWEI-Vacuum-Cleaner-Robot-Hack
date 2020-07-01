@@ -1,6 +1,7 @@
-# JISIWEI-Vacuum-Cleaner-Robot-Hack
+# JISIWEI Vacuum Cleaner Robot Demo
 Created: 2020-07-29
-Revised: 
+
+Revised: 2020-07-30
 
 This project consists of resources and documentation needed for re-creating and to demo the hack for the JISIWEI Vacuum Cleaner Robot at the NSE Cyber Security Lab. 
 
@@ -9,9 +10,11 @@ This demo will be based upon the HTTP vulnerability found in [CVE-2019-12820](ht
 ## Tools Used
 - **Android Emulator** or **Smartphone**, with the JISIWEI application installed
 - **Aircrack-ng**
-- **mitmproxy**, runned in transparent mode
+- **arpspoof**
+- **mitmproxy**
+- **nmap**
 - **Wireless Network Adapter**
 - **Wireless Router** with relatively easy password for dictionary attack
 - **JISIWEI Vacuum Cleaner Robot**
 
-
+The computer **Dell OptiPlex 7070** should have everything installed. If you use the **TP-Link High-Gain 150Mbps** wireless adapter, you won't have to install any necessary drivers.
