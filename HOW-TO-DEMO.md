@@ -2,13 +2,17 @@
 
 ## Setup
 A computer with these tools have to be fixed:
-- **Android Emulator** or **Smartphone**, with the JISIWEI application installed. iOS app can be found here: https://apps.apple.com/us/app/极思维机器人/id937665306 and the APK file for the Android app is found in this repository.
-- **aircrack-ng**, used for getting in to the network.
-- **mitmproxy**, runned in transparent mode. Used for seeing the HTTP requests.
-- **arpspoof**, for spoofing the network to get the packets.
-- **nmap**, used for finding devices in the network.
+- **Android Smartphone**, with the JISIWEI application installed. iOS app can be found here: https://apps.apple.com/us/app/极思维机器人/id937665306 and the APK file for the Android app is found in this repository.
+- **USB cable**, for connecting smarphone to PC
+- **Aircrack-ng**, for cracking the wifi-password
+- **nmap**, used for finding devices in network
+- **arpspoof**, needed for transparant proxy
+- **mitmproxy**, proxy used for looking at HTTP packets
+- **Wireless Network Adapter**, needed for cracking the wifi and connecting to wifi
+- **Wireless Router**, with relatively easy password for dictionary attack
+- **JISIWEI Vacuum Cleaner Robot**
 
-
+The computer **Dell OptiPlex 7070** should have everything installed. If you use the **TP-Link High-Gain 150Mbps** wireless adapter, you won't have to install any necessary drivers.
 
 ## Step 1
 Use Aircrack-ng with the wireless network adapter to crack the password to the router.
@@ -89,11 +93,7 @@ Start mitmproxy in transparent mode in the third terminal and wait till someone 
 mitmproxy --mode transparent --showhost
 ```
 
-Use the emulator or smartphone and log in to the JISIWEI application while on the same network.
-
-```
-/root/Android/Sdk/emulator/emulator -avd Attacker 
-```
+Use the smartphone and log in to the JISIWEI application while on the same network.
 
 Use the credentials:
 
@@ -105,5 +105,9 @@ When you have logged in you can see the credentials in the HTTP request. Meaning
 
 ## Step 4
 
-Login to the application using the smartphone or emulator showing that it is the same credentials and use the functions of the application.
+Login to the application using the smartphone showing that it is the same credentials and use the functions of the application.
 The attacker could then login whenever they pleases without being in the network.
+Using an android device you could display the screen of the phone on a the bigger screen. The "USB-Debug" has to be allowd, which can be found in the developer settings on the smarthphone. Use the following tool: 
+```
+srcpcopy 
+```
