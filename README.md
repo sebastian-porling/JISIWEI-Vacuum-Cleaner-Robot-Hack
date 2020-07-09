@@ -1,7 +1,7 @@
 # JISIWEI Vacuum Cleaner Robot Demo
-Created: 2020-07-29
+Created: 2020-06-29
 
-Revised: 2020-08-06
+Revised: 2020-07-08
 
 This project consists of resources and documentation needed for re-creating and to demo the hack for the JISIWEI Vacuum Cleaner Robot at the NSE Cyber Security Lab. 
 
@@ -10,6 +10,7 @@ This demo will be based upon the HTTP vulnerability found in [CVE-2019-12820](ht
 ## Tools Used
 - **Android Smartphone**, with the JISIWEI application installed
 - **USB cable**, for connecting smarphone to PC
+- **scrcpy**, for showing the Android screen on the PC
 - **Aircrack-ng**, for cracking the wifi-password
 - **nmap**, used for finding devices in network
 - **arpspoof**, needed for transparant proxy
